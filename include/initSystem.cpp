@@ -27,7 +27,6 @@ bool initSystem(std::unique_ptr<UART> &uart)
         {
             std::cerr << "[FATAL] Unexpected error during initialization: " << e.what() << "\n";
         }
-
         attempts++;
         if (attempts >= MAX_RETRIES)
         {

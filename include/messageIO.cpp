@@ -10,7 +10,6 @@
 
 std::optional<std::string> readLengthPrefixedMessage(UART &uart, int maxMessageSize)
 {
-    // Read 4-byte length prefix
     uint32_t netLen = 0;
     char *netLenPtr = reinterpret_cast<char *>(&netLen);
     int toRead = 4;
@@ -21,7 +20,6 @@ std::optional<std::string> readLengthPrefixedMessage(UART &uart, int maxMessageS
         ssize_t n = uart.readData(netLenPtr + readSoFar, toRead - readSoFar);
         if (n < 0)
         {
-            // If it's a transient "no data" condition
             if (errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
             std::cerr << "[ERROR] readLengthPrefixedMessage: error reading length prefix: "
@@ -30,13 +28,11 @@ std::optional<std::string> readLengthPrefixedMessage(UART &uart, int maxMessageS
         }
         else if (n == 0)
         {
-            // No data yet, continue until we get all 4 bytes
             continue;
         }
         readSoFar += static_cast<int>(n);
     }
 
-    // Convert length from network to host byte order
     uint32_t msgLen = ntohl(netLen);
     if (static_cast<int>(msgLen) > maxMessageSize)
     {
@@ -44,7 +40,6 @@ std::optional<std::string> readLengthPrefixedMessage(UART &uart, int maxMessageS
         return std::nullopt;
     }
 
-    // Read the actual message bytes
     std::string msgData;
     msgData.resize(msgLen);
     char *bufPtr = &msgData[0];
@@ -80,7 +75,6 @@ bool parseAndPrintCommand(const std::string &serialized)
         return false;
     }
 
-    // Print the Command fields
     std::cout << "\n[SERVER] Received Command:\n";
     std::cout << "   cmd = " << incoming.cmd() << "\n";
     std::cout << "   src = " << incoming.src() << "\n";
