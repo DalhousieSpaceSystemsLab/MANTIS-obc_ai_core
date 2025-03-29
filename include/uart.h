@@ -20,7 +20,7 @@ public:
     ssize_t writeData(const char *data, size_t size);
 
     int getFd() const noexcept;
-    bool isOpen() const;
+    bool isOpen() const noexcept;
     void closePort();
 
 private:

@@ -50,7 +50,7 @@ int UART::getFd() const noexcept
     return fd_;
 }
 
-bool UART::isOpen() const
+bool UART::isOpen() const noexcept
 {
     return (fd_ >= 0);
 }
