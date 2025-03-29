@@ -1,12 +1,12 @@
 # Overview
-This repository demonstrates how to use **socat** to simulate a UART connection between the OBC-Micro and OBC-AI devices. All data is transmitted using Protobuf for streamlined serialization and deserialization.
+This repository demonstrates how to use **socat** to simulate a **Protobuf** based UART connection between the OBC-Micro and OBC-AI devices. 
 
 ---
 
 ## Prerequisites
 Make sure the following are installed:
 - A C++ compiler (e.g., `g++` or `clang++`)
-- `cmake` and GNU Make
+- `cmake` and `GNU Make`
 - Protobuf compiler (e.g., `brew install protobuf`)
 - `socat` (e.g., `brew install socat`)
 
